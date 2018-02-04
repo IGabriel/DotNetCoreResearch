@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Common;
 
 namespace Asynchronous
@@ -10,13 +12,25 @@ namespace Asynchronous
         {
             Console.WriteLine("Hello World!");
 
-            const string sourceFolder = @"C:\TestData\source";
+            const string sourceTFolderTextOnly = @"C:\TestData\source";
+            const string sourceTFolderMkvOnly = @"C:\TestData\source\1";
+            
             const string destinationFolder = @"C:\TestData\destination";
-            const string filter = @"*.txt";
+            const string txtFilter = @"*.txt";
+            const string allFilter = @"*.*";
 
             ClearDestinationFolder(destinationFolder);
+
+            List<Task> taskList = new List<Task>();
+            
             FileReader reader = new FileReader();
-            reader.ReadCopyFolderAsync(sourceFolder, destinationFolder, filter);
+            taskList.Add(reader.ReadCopyFolderAsync(sourceTFolderTextOnly, destinationFolder, txtFilter));
+            taskList.Add(reader.ReadCopyFolderAsync(sourceTFolderMkvOnly, destinationFolder, allFilter));
+            Console.WriteLine("Returned to Main");
+            
+            Task.WaitAll(taskList.ToArray());
+
+            Console.WriteLine("All done.");
         }
 
         private static void ClearDestinationFolder(string folder)
