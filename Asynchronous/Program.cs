@@ -12,9 +12,16 @@ namespace Asynchronous
         {
             Console.WriteLine("Hello World!");
 
+            var t = WhenExceptionTester.DoMultipleAsync();
+            t.Wait();
+            //CopyFiles();
+        }
+
+        private static void CopyFiles()
+        {
             const string sourceTFolderTextOnly = @"C:\TestData\source";
             const string sourceTFolderMkvOnly = @"C:\TestData\source\1";
-            
+
             const string destinationFolder = @"C:\TestData\destination";
             const string txtFilter = @"*.txt";
             const string allFilter = @"*.*";
@@ -22,12 +29,12 @@ namespace Asynchronous
             ClearDestinationFolder(destinationFolder);
 
             List<Task> taskList = new List<Task>();
-            
+
             FileReader reader = new FileReader();
             taskList.Add(reader.ReadCopyFolderAsync(sourceTFolderTextOnly, destinationFolder, txtFilter));
             taskList.Add(reader.ReadCopyFolderAsync(sourceTFolderMkvOnly, destinationFolder, allFilter));
             Console.WriteLine("Returned to Main");
-            
+
             Task.WaitAll(taskList.ToArray());
 
             Console.WriteLine("All done.");
@@ -35,7 +42,7 @@ namespace Asynchronous
 
         private static void ClearDestinationFolder(string folder)
         {
-            foreach(var fileName in Directory.EnumerateFiles(folder))
+            foreach (var fileName in Directory.EnumerateFiles(folder))
             {
                 File.Delete(fileName);
             }
