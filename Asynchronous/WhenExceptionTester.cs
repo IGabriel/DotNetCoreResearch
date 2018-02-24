@@ -26,12 +26,13 @@ namespace Asynchronous
                     Console.WriteLine("Task Inner Exception: " + inEx.Message);
                 }
             }
+            Console.WriteLine($"All done. {allTasks.IsCanceled}, {allTasks.IsCompleted}, {allTasks.IsFaulted}, {allTasks.Exception}");
         }
 
         private static async Task ExcAsync(string info)
         {
             Random r = new Random();
-            int delay = r.Next(10, 3000);
+            int delay = r.Next(10, 300);
             await Task.Delay(delay);
             Console.WriteLine($"Sleep {delay} milliseconds");
 

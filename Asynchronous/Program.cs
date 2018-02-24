@@ -12,7 +12,7 @@ namespace Asynchronous
         {
             Console.WriteLine("Hello World!");
 
-            var t = WhenExceptionTester.DoMultipleAsync();
+            var t = HttpClientTester.AccessTheWebAsync();
             t.Wait();
             //CopyFiles();
         }
