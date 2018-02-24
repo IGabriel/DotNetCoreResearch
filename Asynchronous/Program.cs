@@ -10,11 +10,14 @@ namespace Asynchronous
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Application started.");
 
-            var t = HttpClientTester.AccessTheWebAsync();
-            t.Wait();
+            // var t = HttpClientTester.AccessTheWebAsync();
+            // t.Wait();
             //CopyFiles();
+            CancellationTokenSourceTest.CollectFromInstruments();
+
+            Console.WriteLine("Application ended.");
         }
 
         private static void CopyFiles()
