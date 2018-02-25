@@ -12,10 +12,12 @@ namespace Asynchronous
         {
             Console.WriteLine("Application started.");
 
-            // var t = HttpClientTester.AccessTheWebAsync();
-            // t.Wait();
+            var t = HttpClientTester.AccessTheWebAsync();
+            t.Wait();
+
             //CopyFiles();
-            CancellationTokenSourceTest.CollectFromInstruments();
+
+            //CancellationTokenSourceTest.CollectFromInstruments();
 
             Console.WriteLine("Application ended.");
         }
